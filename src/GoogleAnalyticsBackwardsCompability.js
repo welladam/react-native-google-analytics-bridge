@@ -1,9 +1,12 @@
-import { GoogleTagManager } from './GoogleTagManager';
-import { GoogleAnalyticsSettings } from './GoogleAnalyticsSettings';
-import { GoogleAnalyticsTracker } from './GoogleAnalyticsTracker';
+import { GoogleTagManager } from "./GoogleTagManager";
+import { GoogleAnalyticsSettings } from "./GoogleAnalyticsSettings";
+import { GoogleAnalyticsTracker } from "./GoogleAnalyticsTracker";
 
 function createNewTracker(trackerId, customDimensionsKeysIndexMap) {
-  return trackerId && new GoogleAnalyticsTracker(trackerId, customDimensionsKeysIndexMap);
+  return (
+    trackerId &&
+    new GoogleAnalyticsTracker(trackerId, customDimensionsKeysIndexMap)
+  );
 }
 
 /**
@@ -50,27 +53,86 @@ export class GoogleAnalyticsBackwardsCompability {
   }
 
   trackScreenViewWithCustomDimensionValues(screenName, customDimensionValues) {
-    this.tracker.trackScreenViewWithCustomDimensionValues(screenName, customDimensionValues);
+    this.tracker.trackScreenViewWithCustomDimensionValues(
+      screenName,
+      customDimensionValues
+    );
   }
 
-  trackEventWithCustomDimensionValues(category, action, optionalValues = {}, customDimensionValues) {
-    this.tracker.trackEventWithCustomDimensionValues(category, action, optionalValues, customDimensionValues);
+  trackEventWithCustomDimensionValues(
+    category,
+    action,
+    optionalValues = {},
+    customDimensionValues
+  ) {
+    this.tracker.trackEventWithCustomDimensionValues(
+      category,
+      action,
+      optionalValues,
+      customDimensionValues
+    );
   }
 
   trackTiming(category, value, optionalValues = {}) {
     this.tracker.trackTiming(category, value, optionalValues);
   }
 
-  trackPurchaseEvent(product = {}, transaction = {}, eventCategory = "Ecommerce", eventAction = "Purchase") {
-    this.tracker.trackPurchaseEvent(product, transaction, eventCategory, eventAction);
+  trackProductActionEvent(
+    product = {},
+    actionType = "click",
+    eventCategory = "Ecommerce",
+    eventAction = "Click"
+  ) {
+    this.tracker.trackProductActionEvent(
+      product,
+      actionType,
+      eventCategory,
+      eventAction
+    );
   }
 
-  trackMultiProductsPurchaseEvent(products = [], transaction = {}, eventCategory = "Ecommerce", eventAction = "Purchase") {
-    this.tracker.trackMultiProductsPurchaseEvent(products, transaction, eventCategory, eventAction);
+  trackPurchaseEvent(
+    product = {},
+    transaction = {},
+    eventCategory = "Ecommerce",
+    eventAction = "Purchase"
+  ) {
+    this.tracker.trackPurchaseEvent(
+      product,
+      transaction,
+      eventCategory,
+      eventAction
+    );
   }
 
-  trackMultiProductsPurchaseEventWithCustomDimensionValues(products = [], transaction = {}, eventCategory = "Ecommerce", eventAction = "Purchase", customDimensionValues) {
-    this.tracker.trackMultiProductsPurchaseEventWithCustomDimensionValues(products, transaction, eventCategory, eventAction, customDimensionValues);
+  trackMultiProductsPurchaseEvent(
+    products = [],
+    transaction = {},
+    eventCategory = "Ecommerce",
+    eventAction = "Purchase"
+  ) {
+    this.tracker.trackMultiProductsPurchaseEvent(
+      products,
+      transaction,
+      eventCategory,
+      eventAction
+    );
+  }
+
+  trackMultiProductsPurchaseEventWithCustomDimensionValues(
+    products = [],
+    transaction = {},
+    eventCategory = "Ecommerce",
+    eventAction = "Purchase",
+    customDimensionValues
+  ) {
+    this.tracker.trackMultiProductsPurchaseEventWithCustomDimensionValues(
+      products,
+      transaction,
+      eventCategory,
+      eventAction,
+      customDimensionValues
+    );
   }
 
   trackException(error, fatal = false) {

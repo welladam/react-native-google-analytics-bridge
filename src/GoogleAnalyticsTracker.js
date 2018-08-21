@@ -1,4 +1,4 @@
-import { GoogleAnalyticsBridge } from './NativeBridges';
+import { GoogleAnalyticsBridge } from "./NativeBridges";
 
 const DEFAULT_DISPATCH_TIMEOUT = 15000;
 
@@ -9,7 +9,9 @@ const DEFAULT_DISPATCH_TIMEOUT = 15000;
  */
 function isValidCustomDimension(customDimensionVal) {
   const customDimensionValType = typeof customDimensionVal;
-  return customDimensionValType === 'string' || customDimensionValType === 'number';
+  return (
+    customDimensionValType === "string" || customDimensionValType === "number"
+  );
 }
 
 /**
@@ -82,8 +84,14 @@ export class GoogleAnalyticsTracker {
    * @param  {Object} customDimensionValues An object containing custom dimension key/value pairs
    */
   trackScreenViewWithCustomDimensionValues(screenName, customDimensionValues) {
-    const formattedCustomDimensions = this.transformCustomDimensionsFieldsToIndexes(customDimensionValues);
-    GoogleAnalyticsBridge.trackScreenViewWithCustomDimensionValues(this.id, screenName, formattedCustomDimensions);
+    const formattedCustomDimensions = this.transformCustomDimensionsFieldsToIndexes(
+      customDimensionValues
+    );
+    GoogleAnalyticsBridge.trackScreenViewWithCustomDimensionValues(
+      this.id,
+      screenName,
+      formattedCustomDimensions
+    );
   }
 
   /**
@@ -93,9 +101,22 @@ export class GoogleAnalyticsTracker {
    * @param  {Object} optionalValues An object containing optional label and value
    * @param  {Object} customDimensionValues An object containing custom dimension key/value pairs
    */
-  trackEventWithCustomDimensionValues(category, action, optionalValues = {}, customDimensionValues) {
-    const formattedCustomDimensions = this.transformCustomDimensionsFieldsToIndexes(customDimensionValues);
-    GoogleAnalyticsBridge.trackEventWithCustomDimensionValues(this.id, category, action, optionalValues, formattedCustomDimensions);
+  trackEventWithCustomDimensionValues(
+    category,
+    action,
+    optionalValues = {},
+    customDimensionValues
+  ) {
+    const formattedCustomDimensions = this.transformCustomDimensionsFieldsToIndexes(
+      customDimensionValues
+    );
+    GoogleAnalyticsBridge.trackEventWithCustomDimensionValues(
+      this.id,
+      category,
+      action,
+      optionalValues,
+      formattedCustomDimensions
+    );
   }
   /**
    * Track an event that has occured with custom dimension and metric values.
@@ -105,11 +126,24 @@ export class GoogleAnalyticsTracker {
    * @param  {Object} customDimensionValues An object containing custom dimension key/value pairs
    * @param  {Object} customMetricValues An object containing custom metric key/value pairs
    */
-  trackEventWithCustomDimensionAndMetricValues(category, action, optionalValues = {}, customDimensionValues, customMetricValues) {
-    GoogleAnalyticsBridge.trackEventWithCustomDimensionAndMetricValues(this.id, category, action, optionalValues, customDimensionValues, customMetricValues);
+  trackEventWithCustomDimensionAndMetricValues(
+    category,
+    action,
+    optionalValues = {},
+    customDimensionValues,
+    customMetricValues
+  ) {
+    GoogleAnalyticsBridge.trackEventWithCustomDimensionAndMetricValues(
+      this.id,
+      category,
+      action,
+      optionalValues,
+      customDimensionValues,
+      customMetricValues
+    );
   }
 
- /**
+  /**
    * Track an event that has occured
    * @param  {String} category       The event category
    * @param  {Number} value         	The timing measurement in milliseconds
@@ -126,8 +160,19 @@ export class GoogleAnalyticsTracker {
    * @param  {String} eventCategory The event category, defaults to Ecommerce
    * @param  {String} eventAction   The event action, defaults to Purchase
    */
-  trackPurchaseEvent(product = {}, transaction = {}, eventCategory = "Ecommerce", eventAction = "Purchase") {
-    GoogleAnalyticsBridge.trackPurchaseEvent(this.id, product, transaction, eventCategory, eventAction);
+  trackPurchaseEvent(
+    product = {},
+    transaction = {},
+    eventCategory = "Ecommerce",
+    eventAction = "Purchase"
+  ) {
+    GoogleAnalyticsBridge.trackPurchaseEvent(
+      this.id,
+      product,
+      transaction,
+      eventCategory,
+      eventAction
+    );
   }
 
   /**
@@ -137,8 +182,19 @@ export class GoogleAnalyticsTracker {
    * @param  {String} eventCategory The event category, defaults to Ecommerce
    * @param  {String} eventAction   The event action, defaults to Purchase
    */
-  trackMultiProductsPurchaseEvent(products = [], transaction = {}, eventCategory = "Ecommerce", eventAction = "Purchase") {
-    GoogleAnalyticsBridge.trackMultiProductsPurchaseEvent(this.id, products, transaction, eventCategory, eventAction);
+  trackMultiProductsPurchaseEvent(
+    products = [],
+    transaction = {},
+    eventCategory = "Ecommerce",
+    eventAction = "Purchase"
+  ) {
+    GoogleAnalyticsBridge.trackMultiProductsPurchaseEvent(
+      this.id,
+      products,
+      transaction,
+      eventCategory,
+      eventAction
+    );
   }
 
   /**
@@ -149,9 +205,44 @@ export class GoogleAnalyticsTracker {
    * @param  {String} eventAction   The event action, defaults to Purchase
    * @param  {Object} customDimensionValues An object containing custom dimension key/value pairs
    */
-  trackMultiProductsPurchaseEventWithCustomDimensionValues(products = [], transaction = {}, eventCategory = "Ecommerce", eventAction = "Purchase", customDimensions) {
-    const formattedCustomDimensions = this.transformCustomDimensionsFieldsToIndexes(customDimensions);
-    GoogleAnalyticsBridge.trackMultiProductsPurchaseEventWithCustomDimensionValues(this.id, products, transaction, eventCategory, eventAction, formattedCustomDimensions);
+  trackMultiProductsPurchaseEventWithCustomDimensionValues(
+    products = [],
+    transaction = {},
+    eventCategory = "Ecommerce",
+    eventAction = "Purchase",
+    customDimensions
+  ) {
+    const formattedCustomDimensions = this.transformCustomDimensionsFieldsToIndexes(
+      customDimensions
+    );
+    GoogleAnalyticsBridge.trackMultiProductsPurchaseEventWithCustomDimensionValues(
+      this.id,
+      products,
+      transaction,
+      eventCategory,
+      eventAction,
+      formattedCustomDimensions
+    );
+  }
+
+  /**
+   * Track product action
+   * @param {Object} product        An object with product values
+   * @param {String} eventAction    The event action, defaults to Purchase
+   */
+  trackProductActionEvent(
+    product = {},
+    actionType = "click",
+    eventCategory = "Ecommerce",
+    eventAction = "Click"
+  ) {
+    GoogleAnalyticsBridge.trackProductActionEvent(
+      this.id,
+      product,
+      actionType,
+      eventCategory,
+      eventAction
+    );
   }
 
   /**
@@ -202,7 +293,12 @@ export class GoogleAnalyticsTracker {
    * @param  {String} targetUrl
    */
   trackSocialInteraction(network, action, targetUrl) {
-    GoogleAnalyticsBridge.trackSocialInteraction(this.id, network, action, targetUrl);
+    GoogleAnalyticsBridge.trackSocialInteraction(
+      this.id,
+      network,
+      action,
+      targetUrl
+    );
   }
 
   /**
@@ -254,7 +350,7 @@ export class GoogleAnalyticsTracker {
   setCurrency(currencyCode) {
     GoogleAnalyticsBridge.setCurrency(this.id, currencyCode);
   }
-  
+
   createNewSession(screenName) {
     GoogleAnalyticsBridge.createNewSession(this.id, screenName);
   }
@@ -282,14 +378,13 @@ export class GoogleAnalyticsTracker {
 
     let timer = null;
 
-    const withTimeout = timeout => (
+    const withTimeout = timeout =>
       new Promise(resolve => {
         timer = setTimeout(() => {
           timer = null;
           resolve();
         }, Math.min(timeout, DEFAULT_DISPATCH_TIMEOUT));
-      })
-    );
+      });
 
     return Promise.race([
       GoogleAnalyticsBridge.dispatch(),
