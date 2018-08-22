@@ -229,19 +229,22 @@ export class GoogleAnalyticsTracker {
    * Track product action
    * @param {Object} product        An object with product values
    * @param {String} eventAction    The event action, defaults to Purchase
+   * @param  {Object} optionalValues An object containing optional label and value
    */
   trackProductActionEvent(
     product = {},
     actionType = "click",
     eventCategory = "Ecommerce",
-    eventAction = "Click"
+    eventAction = "Click",
+    optionalValues = {}
   ) {
     GoogleAnalyticsBridge.trackProductActionEvent(
       this.id,
       product,
       actionType,
       eventCategory,
-      eventAction
+      eventAction,
+      optionalValues
     );
   }
 

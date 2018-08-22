@@ -248,7 +248,7 @@ RCT_EXPORT_METHOD(trackMultiProductsPurchaseEventWithCustomDimensionValues:(NSSt
     [tracker send:[builder build]];
 }
 
-RCT_EXPORT_METHOD(trackProductActionEvent:(NSString *)trackerId product:(NSDictionary *)product actionType:(NSString *)actionType eventCategory:(NSString *)eventCategory eventAction:(NSString *)eventAction )
+RCT_EXPORT_METHOD(trackProductActionEvent:(NSString *)trackerId product:(NSDictionary *)product actionType:(NSString *)actionType eventCategory:(NSString *)eventCategory eventAction:(NSString *)eventAction optionalValues:(NSDictionary *)optionalValues)
 {
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:trackerId];
     NSString *productId = [RCTConvert NSString:product[@"id"]];
@@ -259,6 +259,8 @@ RCT_EXPORT_METHOD(trackProductActionEvent:(NSString *)trackerId product:(NSDicti
     NSNumber *productPrice = [RCTConvert NSNumber:product[@"price"]];
     NSString *productCouponCode = [RCTConvert NSString:product[@"couponCode"]];
     NSNumber *productQuantity = [RCTConvert NSNumber:product[@"quantity"]];
+    NSString *label = [RCTConvert NSString:optionalValues[@"label"]];
+    NSNumber *value = [RCTConvert NSNumber:optionalValues[@"value"]];
     
     GAIEcommerceProduct *ecommerceProduct = [[GAIEcommerceProduct alloc] init];
     [ecommerceProduct setId:productId];
@@ -281,8 +283,8 @@ RCT_EXPORT_METHOD(trackProductActionEvent:(NSString *)trackerId product:(NSDicti
     }
      GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createEventWithCategory:eventCategory
                                                                            action:eventAction
-                                                                            label:nil
-                                                                            value:nil];
+                                                                            label:label
+                                                                            value:value];
     [builder setProductAction:action];
     [builder addProduct:ecommerceProduct];
     [tracker send:[builder build]];

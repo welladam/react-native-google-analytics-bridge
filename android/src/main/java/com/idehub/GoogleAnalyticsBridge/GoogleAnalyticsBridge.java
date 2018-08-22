@@ -183,7 +183,7 @@ public class GoogleAnalyticsBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void trackProductActionEvent(String trackerId, ReadableMap product, String actionType, String eventCategory, String eventAction ) {
+    public void trackProductActionEvent(String trackerId, ReadableMap product, String actionType, String eventCategory, String eventAction, ReadableMap optionalValues) {
         Tracker tracker = getTracker(trackerId);
          if (tracker != null) {
             
@@ -203,11 +203,21 @@ public class GoogleAnalyticsBridge extends ReactContextBaseJavaModule {
                     productAction = new ProductAction(ProductAction.ACTION_CLICK);
                     break;
             }
-            HitBuilders.ScreenViewBuilder builder = new HitBuilders.ScreenViewBuilder()
+            HitBuilders.EventBuilder builder = new HitBuilders.EventBuilder()
                 .addProduct(this.getPurchaseProduct(product))
                 .setProductAction(productAction)
                 .setCategory(eventCategory)
                 .setAction(eventAction);
+
+            if (optionalValues != null) {
+                if (optionalValues.hasKey("label")) {
+                    builder.setLabel(optionalValues.getString("label"));
+                }
+                if (optionalValues.hasKey("value")) {
+                    builder.setValue((long) optionalValues.getDouble("value"));
+                }
+            }
+
              tracker.send(builder.build());
         }
     }

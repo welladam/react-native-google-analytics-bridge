@@ -81,13 +81,15 @@ export class GoogleAnalyticsBackwardsCompability {
     product = {},
     actionType = "click",
     eventCategory = "Ecommerce",
-    eventAction = "Click"
+    eventAction = "Click",
+    optionalValues = {}
   ) {
     this.tracker.trackProductActionEvent(
       product,
       actionType,
       eventCategory,
-      eventAction
+      eventAction,
+      optionalValues
     );
   }
 
